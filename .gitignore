@@ -1,4 +1,13 @@
 go.sum
 
+.DS_Store
+
+*/.vscode
+*/.idea
 
 *.exe
+
+
+.idea/
+
+.vscode/

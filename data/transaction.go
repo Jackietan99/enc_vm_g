@@ -93,3 +93,7 @@ func (tx *Transaction) decodeType(b []byte) (TxData, error) {
 	return t, err
 
 }
+
+func (tx *Transaction) WithSignatureValues() (*Transaction, error) {
+
+}

@@ -3,9 +3,19 @@ package data
 import (
 	"bytes"
 	"math/big"
+
+	"github.com/shopspring/decimal"
 )
 
 type RecordTx struct {
+	ChainID *big.Int
+	Value   decimal.Decimal
+	Data    []byte
+	ID      string
+	// Signature values
+	V *big.Int `json:"v"`
+	R *big.Int `json:"r"`
+	S *big.Int `json:"s"`
 }
 
 func (r RecordTx) txType() byte {

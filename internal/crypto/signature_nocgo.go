@@ -1,4 +1,4 @@
-package pkg
+package crytpo
 
 import (
 	"crypto/ecdsa"

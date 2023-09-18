@@ -3,9 +3,18 @@ package data
 import (
 	"bytes"
 	"math/big"
+
+	"github.com/shopspring/decimal"
 )
 
 type WithdrawTx struct {
+	ChainID *big.Int
+	Value   decimal.Decimal
+	Data    []byte
+	// Signature values
+	V *big.Int `json:"v"`
+	R *big.Int `json:"r"`
+	S *big.Int `json:"s"`
 }
 
 func (w WithdrawTx) txType() byte {

@@ -19,6 +19,7 @@ package pkg
 import (
 	"bytes"
 	"database/sql/driver"
+	"enc_vm_g/pkg/hexutil"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
@@ -30,7 +31,6 @@ import (
 	"strings"
 
 	"golang.org/x/crypto/sha3"
-	"hexutil"
 )
 
 // Lengths of hashes and addresses in bytes.

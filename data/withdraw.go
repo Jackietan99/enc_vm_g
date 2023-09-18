@@ -8,9 +8,11 @@ import (
 )
 
 type WithdrawTx struct {
-	ChainID *big.Int
-	Value   decimal.Decimal
-	Data    []byte
+	ChainID   *big.Int
+	Value     decimal.Decimal
+	Data      []byte
+	Timestamp int64
+	ID        string
 	// Signature values
 	V *big.Int `json:"v"`
 	R *big.Int `json:"r"`

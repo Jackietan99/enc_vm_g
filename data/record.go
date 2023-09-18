@@ -8,10 +8,11 @@ import (
 )
 
 type RecordTx struct {
-	ChainID *big.Int
-	Value   decimal.Decimal
-	Data    []byte
-	ID      string
+	ChainID   *big.Int
+	Value     decimal.Decimal
+	Data      []byte
+	Timestamp int64
+	ID        string
 	// Signature values
 	V *big.Int `json:"v"`
 	R *big.Int `json:"r"`

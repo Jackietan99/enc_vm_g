@@ -8,10 +8,11 @@ import (
 )
 
 type DepositTx struct {
-	ChainID *big.Int
-	Value   decimal.Decimal
-	Data    []byte
-	ID      string
+	ChainID   *big.Int
+	Value     decimal.Decimal
+	Data      []byte
+	ID        string
+	Timestamp int64
 	// Signature values
 	V *big.Int `json:"v"`
 	R *big.Int `json:"r"`

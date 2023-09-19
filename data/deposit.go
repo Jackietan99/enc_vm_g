@@ -13,6 +13,7 @@ type DepositTx struct {
 	Data      []byte
 	ID        string
 	Timestamp int64
+	Header    Hash
 	// Signature values
 	V *big.Int `json:"v"`
 	R *big.Int `json:"r"`

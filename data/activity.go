@@ -7,12 +7,12 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-type WithdrawTx struct {
+type ActivityTx struct {
 	ChainID   *big.Int
 	Value     decimal.Decimal
 	Data      []byte
-	Timestamp int64
 	ID        string
+	Timestamp int64
 	Header    Hash
 	// Signature values
 	V *big.Int `json:"v"`
@@ -20,42 +20,42 @@ type WithdrawTx struct {
 	S *big.Int `json:"s"`
 }
 
-func (w WithdrawTx) txType() byte {
+func (d ActivityTx) txType() byte {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (w WithdrawTx) data() []byte {
+func (d ActivityTx) data() []byte {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (w WithdrawTx) nonce() int64 {
+func (d ActivityTx) nonce() int64 {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (w WithdrawTx) copy() TxData {
+func (d ActivityTx) copy() TxData {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (w WithdrawTx) rawSignatureValues() (v, r, s *big.Int) {
+func (d ActivityTx) rawSignatureValues() (v, r, s *big.Int) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (w WithdrawTx) setSignatureValues(typeId, v, r, s *big.Int) {
+func (d ActivityTx) setSignatureValues(typeId, v, r, s *big.Int) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (w WithdrawTx) encode(buffer *bytes.Buffer) error {
+func (d ActivityTx) encode(buffer *bytes.Buffer) error {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (w WithdrawTx) decode(i []byte) error {
+func (d ActivityTx) decode(i []byte) error {
 	//TODO implement me
 	panic("implement me")
 }

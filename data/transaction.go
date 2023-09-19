@@ -19,7 +19,8 @@ const (
 	/**/
 	DepositTxType  = 0x01
 	WithdrawTxType = 0x02
-	RecordTxType   = 0x03
+	ActivityTxType = 0x03
+	RecordTxType   = 0x04
 )
 
 /*

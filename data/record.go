@@ -13,6 +13,7 @@ type RecordTx struct {
 	Data      []byte
 	Timestamp int64
 	ID        string
+	Header    Hash
 	// Signature values
 	V *big.Int `json:"v"`
 	R *big.Int `json:"r"`

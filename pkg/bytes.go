@@ -18,6 +18,7 @@
 package pkg
 
 import (
+	"enc_vm_g/pkg/hexutil"
 	"encoding/hex"
 	"errors"
 )

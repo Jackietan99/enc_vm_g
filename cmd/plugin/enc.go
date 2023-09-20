@@ -7,6 +7,7 @@ import (
 	"log"
 	"math/big"
 
+	"enc_vm_g/internal/constant"
 	"enc_vm_g/internal/crypto"
 	"enc_vm_g/internal/crypto/secp256k1"
 	"enc_vm_g/internal/data"
@@ -34,7 +35,7 @@ func EncV1Sign(
 	// 通过
 	var (
 		s = data.V1Signer{
-			Salt: V1,
+			Salt: constant.V1,
 		}
 		i = data.DepositTx{
 			ChainID:   big.NewInt(1),

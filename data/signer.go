@@ -9,3 +9,6 @@ type Signer interface {
 	Hash(tx *Transaction) Hash
 	Equal(Signer) bool
 }
+
+
+type 

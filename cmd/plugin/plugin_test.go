@@ -27,8 +27,8 @@ func TestEncV1Sign(t *testing.T) {
 	}
 
 	// 定义测试数据
-	key := []byte("your_key_here")
-	header := []byte("your_header_here")
+	key := []byte("123okbingo123411111111")
+	header := []byte("")
 	timestamp := time.Now().Unix()
 	ID := "your_ID_here"
 	txType := 0

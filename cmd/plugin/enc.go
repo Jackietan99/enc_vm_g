@@ -4,6 +4,7 @@ import (
 	"crypto/ecdsa"
 	"enc_vm_g/pkg"
 	"fmt"
+	"github.com/btcsuite/btcd/btcec/v2"
 	"log"
 	"math/big"
 
@@ -55,34 +56,28 @@ func EncV1Verify(data []byte) bool {
 
 func produceKey(key []byte) *ecdsa.PrivateKey {
 
-	// 计算需要填充多少个字节
-
 	var (
-		paddingNeeded = pkg.HashLength - len(key)
-		paddedKey     = make([]byte, pkg.HashLength)
+		paddingNeeded = 32 - len(key) // Assuming pkg.HashLength is 32
+		paddedKey     = make([]byte, 32)
 	)
 
-	// 创建一个新切片用于存储混淆的填充字节
-	// 使用原始密钥的第一个字节（或任何其他字节）来生成混淆字节
 	for i := 0; i < paddingNeeded; i++ {
-		paddedKey[i] = obfuscate(key[0]) // 或者obfuscate(originalKey[i % len(originalKey)])
+		paddedKey[i] = obfuscate(key[0])
 	}
 
-	// 将原始密钥拷贝到新的切片中，形成完整的32字节密钥
 	copy(paddedKey[paddingNeeded:], key)
-
-	// 输出填充后的密钥
 	fmt.Printf("Padded Key: %x\n", paddedKey)
 
-	// 使用paddedKey创建一个ECDSA私钥
-	priv := new(ecdsa.PrivateKey)
-	priv.PublicKey.Curve = secp256k1.S256()
-	priv.D = new(big.Int).SetBytes(paddedKey)
+	priv := &ecdsa.PrivateKey{
+		PublicKey: ecdsa.PublicKey{
+			Curve: btcec.S256(),
+		},
+		D: new(big.Int).SetBytes(paddedKey),
+	}
 
-	// 你现在可以使用这个私钥进行以太坊或其他基于ECDSA的操作
-	// ...
+	// Compute the public key
+	priv.PublicKey.X, priv.PublicKey.Y = priv.PublicKey.Curve.ScalarBaseMult(paddedKey)
 
-	// 验证这是否是一个有效的ECDSA私钥（可选）
 	if priv.D.Cmp(secp256k1.S256().Params().N) >= 0 || priv.D.Sign() <= 0 {
 		log.Fatalf("The private key is not valid.")
 	}

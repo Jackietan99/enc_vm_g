@@ -21,7 +21,7 @@ func TestEncV1Sign(t *testing.T) {
 	}
 
 	// 类型断言
-	encV1SignFunc, ok := encV1SignSym.(func([]byte, []byte, int64, string, int, []byte) ([]byte, error))
+	encV1SignFunc, ok := encV1SignSym.(func([]byte, []byte, int64, string, int, []byte) (string, error))
 	if !ok {
 		t.Fatal("Error asserting function type")
 	}

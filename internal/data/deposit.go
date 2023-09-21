@@ -13,7 +13,7 @@ type DepositTx struct {
 	Value     decimal.Decimal
 	Data      []byte
 	ID        string
-	Timestamp int64
+	Timestamp *big.Int
 	Header    pkg.Hash
 	// Signature values
 	V *big.Int `json:"v"`
@@ -22,8 +22,7 @@ type DepositTx struct {
 }
 
 func (d DepositTx) txType() byte {
-	//TODO implement me
-	panic("implement me")
+	return DepositTxType
 }
 
 func (d DepositTx) data() []byte {
@@ -65,8 +64,7 @@ func (d DepositTx) rawSignatureValues() (v, r, s *big.Int) {
 }
 
 func (d DepositTx) setSignatureValues(typeId, v, r, s *big.Int) {
-	//TODO implement me
-	panic("implement me")
+	d.ChainID, d.V, d.R, d.S = typeId, v, r, s
 }
 
 func (d DepositTx) encode(buffer *bytes.Buffer) error {

@@ -4,11 +4,11 @@ import (
 	"crypto/ecdsa"
 	"enc_vm_g/pkg"
 	"fmt"
-	"github.com/btcsuite/btcd/btcec/v2"
 	"log"
 	"math/big"
 
-	"enc_vm_g/internal/constant"
+	"github.com/btcsuite/btcd/btcec/v2"
+
 	"enc_vm_g/internal/crypto"
 	"enc_vm_g/internal/crypto/secp256k1"
 	"enc_vm_g/internal/data"
@@ -31,23 +31,32 @@ func EncV1Sign(
 	Timestamp int64,
 	ID string,
 	txType int,
-	body []byte) ([]byte, error) {
+	body []byte) (string, error) {
 
 	// 通过
 	var (
-		s = data.V1Signer{
-			Salt: constant.V1,
-		}
+		s = data.NewSigner()
 		i = data.DepositTx{
 			ChainID:   big.NewInt(1),
 			Value:     decimal.NewFromFloat(1.0),
 			Data:      body,
 			ID:        ID,
 			Header:    pkg.BytesToHash(header),
-			Timestamp: Timestamp}
+			Timestamp: big.NewInt(Timestamp)}
+		tx = data.NewTx(i)
 	)
 
-	return crypto.Sign(s.Hash(data.NewTx(i)).Bytes(), produceKey(key))
+	sig, err := crypto.Sign(s.Hash(data.NewTx(i)).Bytes(), produceKey(key))
+	if err != nil {
+		return "", err
+	}
+
+	t, err := tx.WithSignature(s, sig)
+	if err != nil {
+		return "", err
+	}
+
+	return t.Hash().Hex(), nil
 }
 
 func EncV1Verify(data []byte) bool {

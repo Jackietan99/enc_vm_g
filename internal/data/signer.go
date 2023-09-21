@@ -1,6 +1,7 @@
 package data
 
 import (
+	"enc_vm_g/internal/constant"
 	"enc_vm_g/internal/crypto"
 	"enc_vm_g/internal/types"
 	"enc_vm_g/pkg"
@@ -27,6 +28,14 @@ var (
 type V1Signer struct {
 	Salt                string // 用于生成签名器的盐
 	chainId, chainIdMul *big.Int
+}
+
+func NewSigner() V1Signer {
+	return V1Signer{
+		Salt:       constant.V1,
+		chainId:    big.NewInt(1),
+		chainIdMul: big.NewInt(2),
+	}
 }
 
 // m V1Signer

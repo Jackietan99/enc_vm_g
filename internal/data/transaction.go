@@ -2,6 +2,9 @@ package data
 
 import (
 	"bytes"
+	"enc_vm_g/internal/rlp"
+	"enc_vm_g/internal/types"
+	"enc_vm_g/pkg"
 	"errors"
 	"math/big"
 	"sync/atomic"
@@ -111,4 +114,28 @@ func (tx *Transaction) WithSignature(signer Signer, sig []byte) (*Transaction, e
 // The return values should not be modified by the caller.
 func (tx *Transaction) RawSignatureValues() (v, r, s *big.Int) {
 	return tx.inner.rawSignatureValues()
+}
+
+// m Transaction
+func (tx *Transaction) MarshalBinary() ([]byte, error) {
+	var buf bytes.Buffer
+	err := tx.encodeTyped(&buf)
+	return buf.Bytes(), err
+}
+
+// encodeTyped writes the canonical encoding of a typed transaction to w.
+func (tx *Transaction) encodeTyped(w *bytes.Buffer) error {
+	w.WriteByte(tx.Type())
+	return rlp.Encode(w, tx.inner)
+}
+
+func (tx *Transaction) Hash() pkg.Hash {
+
+	if hash := tx.hash.Load(); hash != nil {
+		return hash.(pkg.Hash)
+	}
+
+	var h = types.RlpHash(tx.inner)
+	tx.hash.Store(h)
+	return h
 }
